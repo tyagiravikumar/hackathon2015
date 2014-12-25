@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 /**
  * @ngdoc overview
@@ -18,10 +18,14 @@ angular
     'ngTouch'
   ])
   .config(function ($routeProvider) {
+
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
+      })
+      .when ('/global',{
+       templateUrl: 'partial/global.html'
       })
       .when('/about', {
         templateUrl: 'views/about.html',

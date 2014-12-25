@@ -12,15 +12,13 @@
 
   <!-- Bootstrap Core CSS -->
   <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
   <!-- Custom CSS -->
   <link href="styles/sb-admin.css" rel="stylesheet">
-
   <!-- Morris Charts CSS -->
   <link href="styles/morris.css" rel="stylesheet">
-
   <!-- Custom Fonts -->
   <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="bower_components/bootstrap-toggle/css/bootstrap2-toggle.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -73,72 +71,24 @@
     <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav side-nav">
-        <li class="active">
-          <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+        <li>
         </li>
         <li>
-          <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
         </li>
-        <li>
-          <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
-        </li>
-        <li>
-          <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
-        </li>
-        <li>
-          <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
-        </li>
-        <li>
-          <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-        </li>
-        <li>
-          <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
-          <ul id="demo" class="collapse">
-            <li>
-              <a href="#">Dropdown Item</a>
-            </li>
-            <li>
-              <a href="#">Dropdown Item</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
-        </li>
-        <li>
-          <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
-        </li>
+
+
+        <li><a ng-href="#/global"><i class="fa fa-fw fa-dashboard"></i>Global Profile</a></li>
+
       </ul>
     </div>
-    <!-- /.navbar-collapse -->
   </nav>
+
   <div id="page-wrapper">
     <div class="container-fluid">
+      <div ng-view>
 
-      <!-- Page Heading -->
-      <div class="row">
-        <div class="col-lg-12">
-          <h4 class="page-header">
-            Skills <small>Statistics Overview</small>
-          </h4>
-        </div>
       </div>
-
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i>Global</h3>
-            </div>
-            <div class="panel-body">
-              <div id="world_chart" style="position: relative; width: 1000px; height: 500px;"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
-
   </div>
 </div>
 
@@ -149,6 +99,22 @@
 <script src="bower_components/jquery/dist/jquery.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
+<!-- Morris Charts JavaScript -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-touch/angular-touch.js"></script>
+<script src="bower_components/bootstrap-toggle/js/bootstrap2-toggle.min.js"></script>
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<script src="scripts/controllers/about.js"></script>
+
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/d3/d3.min.js"></script>
 <script src="bower_components/topojson/topojson.js"></script>
@@ -223,20 +189,7 @@
     }
   });
 </script>
-<!-- Morris Charts JavaScript -->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="bower_components/angular/angular.js"></script>
-<script src="bower_components/angular-animate/angular-animate.js"></script>
-<script src="bower_components/angular-resource/angular-resource.js"></script>
-<script src="bower_components/angular-cookies/angular-cookies.js"></script>
-<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-<script src="bower_components/angular-route/angular-route.js"></script>
-<script src="bower_components/angular-touch/angular-touch.js"></script>
 
-<script src="scripts/app.js"></script>
-<script src="scripts/controllers/main.js"></script>
-<script src="scripts/controllers/about.js"></script>
 </body>
 
 </html>
