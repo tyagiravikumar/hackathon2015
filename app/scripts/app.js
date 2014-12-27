@@ -15,7 +15,8 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'datamaps'
   ])
   .config(function ($routeProvider) {
 
@@ -25,7 +26,8 @@ angular
         controller: 'MainCtrl'
       })
       .when ('/global',{
-       templateUrl: 'partial/global.html'
+       templateUrl: 'partial/global.html',
+      controller: 'globalMapCtrl'
       })
       .when('/about', {
         templateUrl: 'views/about.html',
