@@ -1,11 +1,28 @@
 <div ng-controller="globalMapCtrl">
-  <datamap
-    options="map.options"
-    data="map.data"
-    colors="map.colors"
-    type="{{ map.type }}"
-    fills="map.fills"
-    >
-  </datamap>
+<div class="row">
+ <div class ="col-lg-12">
+   <div class ="col-lg-8">
+     <div class ="col-lg-6">
+     <datamap
+       options="map.options"
+       data="map.data"
+       colors="map.colors"
+       type="{{ map.type }}"
+       fills="map.fills"
+       >
+     </datamap>
+     </div>
+   </div>
+   <div class ="col-lg-4">
+     <p>selected: {{ selected.name }}</p>
+     <ul>
+       <li ng:repeat="offLocation in allbubbles">
+         <button ng:click="select(offLocation)" >{{offLocation.name}}</button>
+       </li>
+     </ul>
+
+   </div>
 </div>
 
+</div>
+</div>
