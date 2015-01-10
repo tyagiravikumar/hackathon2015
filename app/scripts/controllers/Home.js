@@ -33,10 +33,9 @@ angular.module('hackathonApp')
       $scope.names = myArray;
       console.log (myArray);
     };
-    $scope.Alterfilter = function(value)
+    $scope.Alterfilter = function()
     {
       angular.forEach($scope.filter, function(value){
-        debugger;
         value.isChecked = !value.isChecked;
       })
       console.log($scope.names);
@@ -59,10 +58,9 @@ angular.module('hackathonApp')
       }
       $scope.locs = myArray;
     };
-    $scope.AlterLocation = function(value)
+    $scope.AlterLocation = function()
     {
       angular.forEach($scope.loc, function(value){
-        debugger;
         value.isChecked = !value.isChecked;
       })
       console.log($scope.locs);

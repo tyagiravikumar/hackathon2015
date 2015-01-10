@@ -85,7 +85,7 @@
 <body>
 <div id="wrapper" ng-controller="HomeCtrl">
   <!-- Navigation -->
-  <nav role="navigation" style="margin-bottom: 0">
+  <nav  role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
       <a class="navbar-brand" href="index.html">NIIT Skill Portal</a>
     </div>
@@ -95,8 +95,6 @@
         <ul class="nav" id="side-menu">
           <li>
             <a href='#/global'><i class="fa fa-dashboard fa-fw"></i> Global</a>
-
-
           </li>
           <li class="sidebar-search">
             <div class="input-group custom-search-form">
@@ -105,8 +103,7 @@
             <br/>
             <div class="input-group custom-search-form">
               <input type="text" class="form-control" id="tagloc" ng-model="loc" ng-blur="SetLocation()" placeholder="Location"/>
-                                <span class="input-group-btn">
-                         </span>
+
             </div>
             <!-- /input-group -->
           </li>
@@ -133,16 +130,16 @@
                 </div>
               </li>
             </div>
-        </ul>
-      </div>
+          </div>
 
-      <div style="text-align: center;padding-top: 10px">
-        <a href='#/global/India' class="btn btn-default"> Show me on map</a>
+        </ul>
+       <div style="text-align: center;padding-top: 10px">
+        <button class="btn btn-default">Show me on map</button>
       </div>
 
       <!-- /.sidebar-collapse -->
     </div>
-
+    </div>
     <!-- /.navbar-static-side -->
   </nav>
 
@@ -154,11 +151,11 @@
     </div>
   </div>
     <!-- /.row -->
-  </div>
+
   <!-- /.row -->
 
   <!-- /.row -->
-</div>
+
 <!-- /#page-wrapper -->
 
 </div>

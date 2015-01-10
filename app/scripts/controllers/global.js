@@ -16,7 +16,10 @@ angular.module('hackathonApp')
     //$scope.data = [1, 2, 3, 4];
 
     delete $http.defaults.headers.common['X-Requested-With'];
-    $scope.filterLocation = $routeParams.filterString;
+    $scope.filterLocation ='';
+    if($routeParams.filterString !== 'undefined' )
+    $scope.filterLocation = '?{"country":"' + $routeParams.filterString + '"}';
+
 
     $scope.hovered = function(d){
       $scope.barValue = d;
@@ -104,7 +107,7 @@ angular.module('hackathonApp')
         width: 600,
         //legendHeight: 600, // optionally set the padding for the legend
         legend: false,
-        bubbles: $http.get('http://localhost:5500/niitresourses' + '?{"country":"' + $scope.filterLocation + '"}' ).success (function(data){
+        bubbles: $http.get('http://localhost:5500/niitresourses').success (function(data){
           $scope.allbubbles =  data;
           $scope.map.options.bubbles = data;
         })
