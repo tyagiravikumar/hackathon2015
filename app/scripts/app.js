@@ -16,7 +16,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'datamaps'
+    'datamaps',
+    'nvd3'
   ])
   .config(function ($routeProvider) {
 
@@ -26,12 +27,20 @@ angular
         controller: 'MainCtrl'
       })
       .when ('/global',{
-       templateUrl: 'partial/global.html',
-      controller: 'globalMapCtrl'
+        templateUrl: 'partial/global.html',
+        controller: 'globalMapCtrl'
+      })
+      .when ('/resourceMap',{
+      templateUrl: 'partial/resourceMap.html',
+      controller: 'ResourceStatsCtrl'
       })
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
+      })
+      .when('/home', {
+        templateUrl: 'Home.html',
+        controller: 'HomeCtrl'
       })
       .otherwise({
         redirectTo: '/'

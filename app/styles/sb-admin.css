@@ -5,7 +5,18 @@
  */
 
 /* Global Styles */
-
+.axis path, .axis line {
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges;
+}
+.axis path{
+  fill: none;
+  stroke: none;
+}
+.bar {
+  fill: steelblue;
+}
 body {
     margin-top: 100px;
     background-color: #222;

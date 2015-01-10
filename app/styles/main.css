@@ -3,7 +3,18 @@ body {
   padding-top: 20px;
   padding-bottom: 20px;
 }
-
+.axis path, .axis line {
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges;
+}
+.axis path{
+  fill: none;
+  stroke: none;
+}
+.bar {
+  fill: steelblue;
+}
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,

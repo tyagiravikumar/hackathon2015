@@ -12,12 +12,18 @@
  */
 angular.module('hackathonApp')
   .controller('globalMapCtrl', function ($scope) {
+    $scope.graphtype =
+      [ { name: 'Donut3D', url: 'view/main.html'},
+        { name: 'Donut', url: 'donut.html'} ];
+
     $scope.select = function(location) {
       var array = [];
       array.push(location);
       $scope.selected = location;
       $scope.map.options.bubbles=array;
     };
+
+
 
     $scope.map = {
       type: 'world',

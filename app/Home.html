@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html  ng-app="hackathonApp">
 <head>
 
   <meta charset="utf-8">
@@ -13,14 +13,17 @@
   <!-- Bootstrap Core CSS -->
   <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom CSS -->
-  <link href="styles/sb-admin.css" rel="stylesheet">
+  <link href="styles/sb-admin-2.css" rel="stylesheet">
   <!-- Morris Charts CSS -->
   <link href="styles/morris.css" rel="stylesheet">
   <!-- Custom Fonts -->
   <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href="bower_components/bootstrap-toggle/css/bootstrap2-toggle.min.css">
   <link href="bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css">
-
+  <link href="bower_components/metisMenu/dist/metisMenu.css">
+  <link href="styles/timeline.css">
+  <link href="styles/main.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 
   <!-- jQuery -->
   <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -28,6 +31,7 @@
   <!-- Bootstrap Core JavaScript -->
   <!-- Morris Charts JavaScript -->
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
+
 
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="bower_components/angular/angular.js"></script>
@@ -39,92 +43,126 @@
   <script src="bower_components/angular-touch/angular-touch.js"></script>
   <script src="bower_components/bootstrap-toggle/js/bootstrap2-toggle.min.js"></script>
   <script src="bower_components/bootstrap-switch/dist/js/bootstrap-switch.js"></script>
-  <script src="scripts/app.js"></script>
-  <script src="scripts/controllers/main.js"></script>
-  <script src="scripts/controllers/about.js"></script>
-  <script src="scripts/controllers/globalMap.js"></script>
-
-
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="bower_components/d3/d3.min.js"></script>
   <script src="bower_components/topojson/topojson.js"></script>
   <script src="bower_components/datamaps/dist/datamaps.world.min.js"></script>
 
+
+
   <script src="bower_components/datamaps/dist/datamaps.all.js"></script>
   <script src="bower_components/angular-datamaps/dist/angular-datamaps.js"></script>
+  <script src="bower_components/nvd3/nv.d3.js"></script> <!-- or use another assembly -->
+  <script src="bower_components/angular-nvd3/dist/angular-nvd3.js"></script>
+  <link rel="stylesheet" href="bower_components/nvd3/nv.d3.css">
 
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
+  <script src="scripts/barChart.js"></script>
+
+  <script src="scripts/sb-admin-2.js"></script>
+
+  <script src="scripts/app.js"></script>
+
+  <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+  <script src="scripts/autocomplete.js"></script>
+
+  <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+
+
+  <script src="scripts/controllers/global.js"></script>
+  <script src="scripts/controllers/main.js"></script>
+  <script src="scripts/controllers/about.js"></script>
+  <script src="scripts/controllers/Home.js"></script>
+
+
+
+
 
 </head>
 
-<body ng-app="hackathonApp">
 
-<div id="wrapper">
-
+<body>
+<div id="wrapper" ng-controller="HomeCtrl">
   <!-- Navigation -->
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <!-- Brand and toggle get grouped for better mobile display -->
+  <nav role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
       <a class="navbar-brand" href="index.html">NIIT Skill Portal</a>
     </div>
-    <!-- Top Menu Items -->
-    <ul class="nav navbar-right top-nav">
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
-        <ul class="dropdown-menu">
+    <!-- /.navbar-header -->
+    <div class="navbar-default sidebar" role="navigation">
+      <div class="sidebar-nav navbar-collapse">
+        <ul class="nav" id="side-menu">
           <li>
-            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+            <a href='#/global'><i class="fa fa-dashboard fa-fw"></i> Global</a>
+
+
           </li>
-          <li>
-            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+          <li class="sidebar-search">
+            <div class="input-group custom-search-form">
+              <input type="text" class="form-control" id="tagtec" ng-model="filter" ng-blur="Setfilter()" placeholder="Technology(asp,sql,vb)"/>
+            </div>
+            <br/>
+            <div class="input-group custom-search-form">
+              <input type="text" class="form-control" id="tagloc" ng-model="loc" ng-blur="SetLocation()" placeholder="Location"/>
+                                <span class="input-group-btn">
+                         </span>
+            </div>
+            <!-- /input-group -->
           </li>
-          <li>
-            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
-          </li>
-          <li class="divider"></li>
-          <li>
-            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
-          </li>
+          <br/>
+          <div ng-show="names.length > 0">
+            <li>
+              <div style="text-align: center"><b>Technology</b></div>
+            </li>
+            <li ng-repeat="x in names">
+              <div style="padding-left: 25px">
+                <input type="checkbox" id= {{x.name}}  value= {{x.name}} ng-model="x.sel" ng-click="Alterfilter(this)"/>
+                {{x.name}}
+              </div>
+            </li>
+            <br/>
+            <div  ng-show="locs.length > 0">
+              <li>
+                <div style="text-align: center"><b>Location</b></div>
+              </li>
+              <li  ng-repeat="x in locs">
+                <div style="padding-left: 25px">
+                  <input type="checkbox" id= {{x.name}}  value= {{x.name}} ng-model="x.sel" ng-click="AlterLocation(this)"/>
+                  {{x.name}}
+                </div>
+              </li>
+            </div>
         </ul>
-      </li>
-    </ul>
+      </div>
 
+      <div style="text-align: center;padding-top: 10px">
+        <button class="btn btn-default">Show me on map</button>
+      </div>
 
-    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-    <div class="collapse navbar-collapse navbar-ex1-collapse">
-      <ul class="nav navbar-nav side-nav">
-        <li>
-        </li>
-        <li>
-
-        </li>
-
-
-        <li><a ng-href="#/global"><i class="fa fa-fw fa-dashboard"></i>Global Profile</a></li>
-
-      </ul>
+      <!-- /.sidebar-collapse -->
     </div>
+
+    <!-- /.navbar-static-side -->
   </nav>
 
-  <div id="page-wrapper">
+  <div id="page-wrapper" style="border: solid black 1px;">
     <div class="container-fluid">
       <div ng-view>
 
       </div>
     </div>
   </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.row -->
+
+  <!-- /.row -->
 </div>
+<!-- /#page-wrapper -->
+
+</div>
+
 
 </body>
 

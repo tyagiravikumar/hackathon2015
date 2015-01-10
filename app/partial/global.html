@@ -1,28 +1,41 @@
-<div ng-controller="globalMapCtrl">
-<div class="row">
- <div class ="col-lg-12">
-   <div class ="col-lg-8">
-     <div class ="col-lg-6">
-     <datamap
-       options="map.options"
-       data="map.data"
-       colors="map.colors"
-       type="{{ map.type }}"
-       fills="map.fills"
-       >
-     </datamap>
-     </div>
-   </div>
-   <div class ="col-lg-4">
-     <p>selected: {{ selected.name }}</p>
-     <ul>
-       <li ng:repeat="offLocation in allbubbles">
-         <button ng:click="select(offLocation)" >{{offLocation.name}}</button>
-       </li>
-     </ul>
 
-   </div>
-</div>
+  <div ng-controller="globalMapCtrl">
+    <div class="row">
+    <div class ="col-lg-12">
+      <div class ="col-lg-8">
 
-</div>
+        <datamap
+          options="map.options"
+          data="map.data"
+          colors="map.colors"
+          type="{{ map.type }}"
+          fills="map.fills"
+          on-click="updateActiveGeography"
+          onload=""
+          >
+        </datamap>
+
+      </div>
+
+
+      <div class ="col-lg-4">
+        <p> <b>Selected NIIT Location: </b> <br/> {{ selected.name }}</p>
+        <br/>
+        <ul class="panel listBar" scroller="">
+          <li ng:repeat="offLocation in allbubbles">
+            <a id= {{offLocation.name}} href ng-click="select(offLocation)">{{offLocation.name}}</a>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+    <div class="row">
+      <div class ="col-lg-6">
+        <chart-form></chart-form>
+        <bar-chart height="options.height" data="data" hovered="hovered(args)"></bar-chart>
+      </div>
+      <div class ="col-lg-6">
+      </div>
+    </div>
 </div>
