@@ -33,18 +33,16 @@ angular.module('hackathonApp')
       $scope.selected = location;
       $scope.map.options.bubbles=array;
 
-      $scope.options = {width: 500, height: 200, 'bar': 'aaa'};
+      $scope.options = {width: 500, height: 300, 'bar': 'aaa'};
 
       $http.get('http://localhost:5500/employee?{"EMPPSA":"' + $scope.selected.id + '"}'  ).success (function(data){
         var lookup = {};
         var items = data;
-        var result = [];
         for (var item, i = 0; item = items[i++];) {
           var EMPSKILL = item.EMPSKILL;
 
           if (!(EMPSKILL in lookup)) {
             lookup[EMPSKILL] = 1;
-            result.push(EMPSKILL);
           }
           else
           {
@@ -58,13 +56,19 @@ angular.module('hackathonApp')
             var obj = {};
             obj.x = key;
             obj.y = lookup[key];
-            dataArray.push(obj);         // Push the key on the array
+            dataArray.push(obj);
           }
         }
         $scope.data = dataArray;
+
+
+
+        $scope.map.options.bubbles[0].emp = dataArray;
+
+
         });
       $scope.barValue = 'None';
-    };
+};
 
 
 
@@ -74,25 +78,27 @@ angular.module('hackathonApp')
         values: [
           { 'location': 'USA', fillKey:'USA'},
           { 'location': 'CAN', fillKey:'USA'},
-          { 'location': 'FRA',  fillKey:'FRA'},
-          { 'location': 'RUS',  fillKey:'RUS'},
+          { 'location': 'FRA',  fillKey:'EUR'},
+          { 'location': 'RUS',  fillKey:'DUB'},
           { 'location': 'IND',  fillKey:'IND'}
         ]
       }],
       fills:{
         'USA': '#1f77b4',
-        'RUS': '#9467bd',
-        'PRK': '#ff7f0e',
-        'PRC': '#2ca02c',
+        'EUR': '#9467bd',
+        'DUB': '#ff7f0e',
+        'SIN': '#2ca02c',
         'IND': '#e377c2',
-        'GBR': '#8c564b',
-        'FRA': '#d62728',
-        'PAK': '#7f7f7f',
+        'HNG': '#8c564b',
+        'AUS': '#d62728',
+        'JAP': '#7f7f7f',
+        'THL': '#666666',
+        'PHL': '#fafafa',
         defaultFill: '#EDDC4E'
       },
       colors: ['#666666', '#b9b9b9', '#fafafa'],
       options: {
-        width: 500,
+        width: 900,
         //legendHeight: 600, // optionally set the padding for the legend
         legend: false,
         bubbles: $http.get('http://localhost:5500/niitresourses').success (function(data){
@@ -140,7 +146,11 @@ angular.module('hackathonApp')
         function randomData(){
           return d3.range(~~(Math.random()*50)+1).map(function(d, i){return ~~(Math.random()*1000);});
         }
-      }
+      }/*,
+      template: '<div class="form">' +
+      'Height: {{options.height}}<br />' +
+      '<input type="range" ng-model="options.height" min="100" max="300"/>' +
+      '<br />Hovered bar data: {{barValue}}</div>'*/
     };
   }).directive('scroller', function () {
     return {
