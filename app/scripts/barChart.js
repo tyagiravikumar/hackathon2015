@@ -40,7 +40,6 @@ d3.custom.barChart = function module() {
 
       var barW = chartW / _data.length;
 
-      debugger;
       var s = 't';
       if (_data.length == 0){ svg=null; s='f';}
      // if (svg[0].svg[0].__data__[0].x =='STATICS'){ svg=null;_data=null;}
@@ -64,7 +63,6 @@ d3.custom.barChart = function module() {
       }
       else
       {
-        debugger;
         svg.attr(
           {style: 'display:block'}
         );
