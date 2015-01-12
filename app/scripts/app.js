@@ -31,8 +31,8 @@ angular
         controller: 'globalMapCtrl'
       })
       .when('/global/:filterString', {
-      templateUrl: 'partial/global.html',
-      controller: 'globalMapCtrl'
+        templateUrl: 'partial/global.html',
+        controller: 'globalMapCtrl'
       })
       .when ('/resourceMap',{
       templateUrl: 'partial/resourceMap.html',

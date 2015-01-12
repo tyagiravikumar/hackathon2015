@@ -5,34 +5,14 @@
 
 $(function() {
     var Tech = [
-        "ActionScript",
-        "AppleScript",
-        "Asp",
-        "BASIC",
-        "C",
-        "C++",
-        "Clojure",
-        "COBOL",
-        "ColdFusion",
-        "Erlang",
-        "Fortran",
-        "Groovy",
-        "Haskell",
-        "Java",
-        "JavaScript",
-        "Lisp",
-        "Perl",
-        "PHP",
-        "Python",
-        "Ruby",
-        "Scala",
-        "Scheme"
+       '.NET',
+      'SAP',
+      'MF',
+      'QA'
     ];
     var Loc = [
         'India',
         'USA'
-
-
     ];
     function split( val ) {
         return val.split( /,\s*/ );

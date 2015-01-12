@@ -16,11 +16,55 @@ angular.module('hackathonApp')
     //$scope.data = [1, 2, 3, 4];
 
     delete $http.defaults.headers.common['X-Requested-With'];
-    $scope.filterLocation ='';
-    if($routeParams.filterString !== 'undefined' )
-    $scope.filterLocation = '?{"country":"' + $routeParams.filterString + '"}';
 
 
+
+    if($routeParams.filterString !== undefined)
+    {
+      $scope.filterLocation ='';
+      $scope.filterSelectedLocation =[];
+      $scope.filterSelectedLocationTech =[];
+
+      $scope.filterLocation = $routeParams.filterString;
+      var filterType =  $scope.filterLocation.split(':');
+      var selectedTechnology = filterType[0].split(',');
+      var selectedLocation = filterType[1].split(',');
+      $http.get('http://localhost:5500/niitresourses')
+        .success (function(data){
+            angular.forEach(data, function (d){
+                angular.forEach(selectedLocation, function (mapLocation){
+                    if (angular.equals(mapLocation, d.country))
+                    {
+                      $scope.filterSelectedLocation.push(d);
+                    }
+                  });
+              });
+            //$scope.map.options.bubbles = $scope.filterSelectedLocation;
+            //$scope.allbubbles = $scope.filterSelectedLocation;
+
+      });
+      $http.get('http://localhost:5500/employee')
+        .success (function(data){
+        angular.forEach(data, function (d){
+          angular.forEach($scope.filterSelectedLocation, function (mapLocation){
+            if (angular.equals(mapLocation.id, d.EMPPSA))
+            {
+
+              angular.forEach(selectedTechnology, function (selectedTech){
+                if (angular.equals(d.EMPSKILL, selectedTech))
+                {
+                    $scope.filterSelectedLocationTech.push(mapLocation);
+                }
+              });
+            }
+          });
+        });
+
+        $scope.map.options.bubbles = $scope.filterSelectedLocationTech;
+        $scope.allbubbles = $scope.filterSelectedLocationTech;
+
+      });
+    }
     $scope.hovered = function(d){
       $scope.barValue = d;
       $scope.$apply();
@@ -72,9 +116,9 @@ angular.module('hackathonApp')
         $scope.map.options.bubbles[0].emp = dataArray;
 
 
-        });
+      });
       $scope.barValue = 'None';
-};
+    };
 
 
 
@@ -104,12 +148,19 @@ angular.module('hackathonApp')
       },
       colors: ['#666666', '#b9b9b9', '#fafafa'],
       options: {
-        width: 600,
+        width: 700,
         //legendHeight: 600, // optionally set the padding for the legend
         legend: false,
         bubbles: $http.get('http://localhost:5500/niitresourses').success (function(data){
-          $scope.allbubbles =  data;
-          $scope.map.options.bubbles = data;
+          if ($scope.filterSelectedLocationTech.length > 0)   {
+            $scope.allbubbles = $scope.filterSelectedLocationTech;
+            $scope.map.options.bubbles = $scope.filterSelectedLocationTech;
+
+          }
+          else {
+            $scope.allbubbles = data;
+            $scope.map.options.bubbles = data;
+          }
         })
       }
     };
@@ -153,10 +204,10 @@ angular.module('hackathonApp')
           return d3.range(~~(Math.random()*50)+1).map(function(d, i){return ~~(Math.random()*1000);});
         }
       }/*,
-      template: '<div class="form">' +
-      'Height: {{options.height}}<br />' +
-      '<input type="range" ng-model="options.height" min="100" max="300"/>' +
-      '<br />Hovered bar data: {{barValue}}</div>'*/
+       template: '<div class="form">' +
+       'Height: {{options.height}}<br />' +
+       '<input type="range" ng-model="options.height" min="100" max="300"/>' +
+       '<br />Hovered bar data: {{barValue}}</div>'*/
     };
   }).directive('scroller', function () {
     return {
@@ -175,4 +226,3 @@ angular.module('hackathonApp')
       }
     };
   });
-
