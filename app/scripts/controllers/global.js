@@ -14,21 +14,42 @@ angular.module('hackathonApp')
   .controller('globalMapCtrl', function ($scope,$http,$routeParams) {
     //$scope.options = {width: 500, height: 300, 'bar': 'aaa'};
     //$scope.data = [1, 2, 3, 4];
-
+    $scope.data =  [];// [{'x':'STATICS', 'y':1}];
+    $scope.update = function(d, i){ $scope.data = []; };
     delete $http.defaults.headers.common['X-Requested-With'];
 
-
+    $scope.IsExistsInLocationArray = function (col, value) {
+      var ifExist = false;
+      angular.forEach(col, function (lo) {
+        if (lo.id === value) {
+          ifExist = true;
+        }
+      });
+      return ifExist;
+    };
 
     if($routeParams.filterString !== undefined)
     {
       $scope.filterLocation ='';
       $scope.filterSelectedLocation =[];
       $scope.filterSelectedLocationTech =[];
+      $scope.filterResult =[];
 
       $scope.filterLocation = $routeParams.filterString;
       var filterType =  $scope.filterLocation.split(':');
-      var selectedTechnology = filterType[0].split(',');
-      var selectedLocation = filterType[1].split(',');
+      var selectedTechnology=[];
+      if (filterType[0].indexOf(',') >0 )
+      {selectedTechnology = filterType[0].split(',');}
+      else
+      {selectedTechnology.push(filterType[0]);}
+
+      var selectedLocation=[];
+      if (filterType[1].indexOf(',') >0 )
+      {selectedLocation = filterType[1].split(',');}
+      else
+      {selectedLocation.push(filterType[1]);}
+
+
       $http.get('http://localhost:5500/niitresourses')
         .success (function(data){
             angular.forEach(data, function (d){
@@ -39,32 +60,39 @@ angular.module('hackathonApp')
                     }
                   });
               });
-            //$scope.map.options.bubbles = $scope.filterSelectedLocation;
-            //$scope.allbubbles = $scope.filterSelectedLocation;
 
-      });
-      $http.get('http://localhost:5500/employee')
-        .success (function(data){
-        angular.forEach(data, function (d){
-          angular.forEach($scope.filterSelectedLocation, function (mapLocation){
-            if (angular.equals(mapLocation.id, d.EMPPSA))
-            {
 
-              angular.forEach(selectedTechnology, function (selectedTech){
-                if (angular.equals(d.EMPSKILL, selectedTech))
-                {
-                    $scope.filterSelectedLocationTech.push(mapLocation);
-                }
-              });
-            }
+        $http.get('http://localhost:5500/employee')
+          .success (function(data){
+          angular.forEach(data, function (d){
+            angular.forEach(selectedTechnology, function (selectedTech){
+              if (angular.equals(d.EMPSKILL.toUpperCase(), selectedTech.toUpperCase()))
+              {
+                $scope.filterSelectedLocationTech.push(d);
+              }
+            });
           });
+
+          angular.forEach($scope.filterSelectedLocationTech, function (emp){
+            angular.forEach($scope.filterSelectedLocation, function(loc){
+              if (angular.equals(emp.EMPPSA, loc.id)){
+                if (!$scope.IsExistsInLocationArray($scope.filterResult, loc.id))
+                {
+                  $scope.filterResult.push(loc);
+                }
+              }
+            });
+
+          });
+          $scope.map.options.bubbles = $scope.filterResult;
+          $scope.allbubbles = $scope.filterResult;
+
         });
 
-        $scope.map.options.bubbles = $scope.filterSelectedLocationTech;
-        $scope.allbubbles = $scope.filterSelectedLocationTech;
-
       });
+
     }
+
     $scope.hovered = function(d){
       $scope.barValue = d;
       $scope.$apply();
@@ -77,7 +105,6 @@ angular.module('hackathonApp')
 
     $scope.select = function(location) {
       var array = [];
-
       array.push(location);
       $scope.selected = location;
       $scope.map.options.bubbles=array;
@@ -110,12 +137,9 @@ angular.module('hackathonApp')
           }
         }
         $scope.data = dataArray;
-
-
+        $scope.update = function(d, i){ $scope.data = dataArray; };
 
         $scope.map.options.bubbles[0].emp = dataArray;
-
-
       });
       $scope.barValue = 'None';
     };
@@ -152,9 +176,10 @@ angular.module('hackathonApp')
         //legendHeight: 600, // optionally set the padding for the legend
         legend: false,
         bubbles: $http.get('http://localhost:5500/niitresourses').success (function(data){
-          if ($scope.filterSelectedLocationTech.length > 0)   {
-            $scope.allbubbles = $scope.filterSelectedLocationTech;
-            $scope.map.options.bubbles = $scope.filterSelectedLocationTech;
+
+          if ($scope.filterResult !== undefined && $scope.filterResult.length > 0)   {
+            $scope.allbubbles = $scope.filterResult;
+            $scope.map.options.bubbles = $scope.filterResult;
 
           }
           else {
