@@ -17,7 +17,9 @@ angular
     'ngSanitize',
     'ngTouch',
     'datamaps',
-    'nvd3'
+    'nvd3',
+    'n3-line-chart',
+    'nvd3ChartDirectives'
   ])
   .config(function ($routeProvider) {
 

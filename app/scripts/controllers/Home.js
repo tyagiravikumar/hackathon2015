@@ -91,7 +91,6 @@ angular.module('hackathonApp')
         }
         filter=  filter.substring(0, filter.length - 1);
       }
-
       $location.path('/global/' + filter); // path not hash
     };
 

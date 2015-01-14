@@ -42,17 +42,17 @@ d3.custom.barChart = function module() {
 
       var s = 't';
       if (_data.length == 0){ svg=null; s='f';}
-     // if (svg[0].svg[0].__data__[0].x =='STATICS'){ svg=null;_data=null;}
-        if(!svg) {
-          svg = d3.select(this)
-            .append('svg')
-            .classed('chart', true);
+      // if (svg[0].svg[0].__data__[0].x =='STATICS'){ svg=null;_data=null;}
+      if(!svg) {
+        svg = d3.select(this)
+          .append('svg')
+          .classed('chart', true);
 
-          var container = svg.append('g').classed('container-group', true);
-          container.append('g').classed('chart-group', true);
-          container.append('g').classed('x-axis-group axis', true);
-          container.append('g').classed('y-axis-group axis', true);
-        }
+        var container = svg.append('g').classed('container-group', true);
+        container.append('g').classed('chart-group', true);
+        container.append('g').classed('x-axis-group axis', true);
+        container.append('g').classed('y-axis-group axis', true);
+      }
 
 
       if (_data.length <=1)

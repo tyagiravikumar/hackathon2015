@@ -52,14 +52,14 @@ angular.module('hackathonApp')
 
       $http.get('http://localhost:5500/niitresourses')
         .success (function(data){
-            angular.forEach(data, function (d){
-                angular.forEach(selectedLocation, function (mapLocation){
-                    if (angular.equals(mapLocation, d.country))
-                    {
-                      $scope.filterSelectedLocation.push(d);
-                    }
-                  });
-              });
+        angular.forEach(data, function (d){
+          angular.forEach(selectedLocation, function (mapLocation){
+            if (angular.equals(mapLocation, d.country))
+            {
+              $scope.filterSelectedLocation.push(d);
+            }
+          });
+        });
 
 
         $http.get('http://localhost:5500/employee')
@@ -116,7 +116,7 @@ angular.module('hackathonApp')
         var lookup = {};
         var items = data;
         for (var item, i = 0; item = items[i++];) {
-          var EMPSKILL = item.EMPSKILL;
+          var EMPSKILL = item.EMPSKILL.trim().toUpperCase();
 
           if (!(EMPSKILL in lookup)) {
             lookup[EMPSKILL] = 1;
